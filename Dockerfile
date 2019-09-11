@@ -11,11 +11,10 @@ RUN node --version
 RUN npm --version
 RUN mongo --version
 
-RUN mkdir -p /data/db 
-RUN mongod --fork --syslog
-
 RUN git clone https://github.com/theteapot/recycle-centre-server.git
+
 WORKDIR /recycle-centre-server
+RUN mkdir -p /data/db 
 RUN npm install
 EXPOSE 5142
-CMD ["npm", "start"]
+CMD mongod --fork --syslog && npm start
