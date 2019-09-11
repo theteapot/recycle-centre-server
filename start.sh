@@ -1,0 +1,1 @@
+docker run -p 8888:5142 --name recycle-centre-server theteapot/recycle-centre-server
