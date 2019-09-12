@@ -1,4 +1,5 @@
 const { connect } = require("./index");
+const moment = require("moment-timezone");
 
 async function createPayment({ paymentType, paymentAmount, product }) {
   const { db, dbo } = await connect();
@@ -8,7 +9,7 @@ async function createPayment({ paymentType, paymentAmount, product }) {
     paymentType,
     paymentAmount,
     product,
-    timestamp: Date.now()
+    timestamp: moment.tz(new moment(), process.env.TZ)
   });
 
   db.close();
