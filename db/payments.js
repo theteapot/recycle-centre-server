@@ -19,7 +19,11 @@ async function createPayment({ paymentType, paymentAmount, product }) {
 async function getPayments() {
   const { db, dbo } = await connect();
   const collection = dbo.collection("payments");
-  let result = await (await collection.find()).toArray();
+  let result = await (await collection.aggregate([])).toArray();
+  result = result.map(record => ({
+    ...record,
+    timestamp: record.timestamp.toString()
+  }));
   db.close();
   return result;
 }
