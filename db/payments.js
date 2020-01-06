@@ -20,8 +20,9 @@ async function getPayments() {
   let result = await (await collection.aggregate([])).toArray();
   result = result.map(record => ({
     ...record,
-    // timestamp: new moment(record.timestamp).toString()
+    timestamp: new moment(record.timestamp._d).toString(),
   }));
+  console.log(result)
   db.close();
   return result;
 }
