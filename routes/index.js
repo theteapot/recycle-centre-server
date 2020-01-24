@@ -16,7 +16,7 @@ paymentRouter.get("/", async (req, res, next) => {
 paymentRouter.get("/csv", async (req, res, next) => {
   res.set({ "Content-Disposition": 'attachment; filename="payments.csv"' });
   let result = await getPayments();
-  stringify(result, (err, output) => res.send(output));
+  stringify(result, { columns: ['timestamp', 'productType', 'paymentType', 'paymentAmount', 'comment'] }, (err, output) => res.send(output));
 });
 
 module.exports = { paymentRouter };

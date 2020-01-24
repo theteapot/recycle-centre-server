@@ -7,7 +7,7 @@ async function createPayment(body) {
 
   let result = await collection.insertOne({
     ...body,
-    timestamp: moment.tz(new moment(), process.env.TZ)
+    timestamp: moment.tz(new moment(), 'UTC')
   });
 
   db.close();
@@ -20,7 +20,7 @@ async function getPayments() {
   let result = await (await collection.aggregate([])).toArray();
   result = result.map(record => ({
     ...record,
-    timestamp: new moment(record.timestamp._d).tz("Pacific/Auckland").toString(),
+    timestamp: new moment(record.timestamp._d).tz(process.env.TZ).toString(),
   }));
   console.log(result)
   db.close();
